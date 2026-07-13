@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package artistalley;
+
+// Service exposed by the Artwork microservice.
+// Consumed by the Recommendation microservice over gRPC
+// instead of a direct DB call.
+service ArtworkService {
+  rpc GetArtwork (ArtworkRequest) returns (ArtworkResponse);
+  rpc ListArtworksByCategory (CategoryRequest) returns (stream ArtworkResponse);
+}
+
+message ArtworkRequest {
+  int32 artwork_id = 1;
+}
+
+message CategoryRequest {
+  string category = 1;
+}
+
+message ArtworkResponse {
+  int32 artwork_id = 1;
+  string title = 2;
+  string artist = 3;
+  string category = 4;
+  double price = 5;
+  int32 views = 6;
+  int32 likes = 7;
+  string status = 8;
+}

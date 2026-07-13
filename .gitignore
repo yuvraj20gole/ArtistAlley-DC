@@ -349,3 +349,5 @@ staticfiles/
 # Temporary files
 *.tmp
 *.temp
+backend/venv/
+backend/__pycache__/
