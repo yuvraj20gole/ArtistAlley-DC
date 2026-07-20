@@ -3,8 +3,9 @@ syntax = "proto3";
 package artistalley;
 
 // Service exposed by the Artwork microservice.
-// Consumed by the Recommendation microservice over gRPC
-// instead of a direct DB call.
+// Every RPC now carries a Lamport logical timestamp so both
+// services can maintain a consistent event ordering without
+// relying on synchronized wall-clock time.
 service ArtworkService {
   rpc GetArtwork (ArtworkRequest) returns (ArtworkResponse);
   rpc ListArtworksByCategory (CategoryRequest) returns (stream ArtworkResponse);
@@ -12,10 +13,12 @@ service ArtworkService {
 
 message ArtworkRequest {
   int32 artwork_id = 1;
+  int32 lamport_timestamp = 2;
 }
 
 message CategoryRequest {
   string category = 1;
+  int32 lamport_timestamp = 2;
 }
 
 message ArtworkResponse {
@@ -27,4 +30,5 @@ message ArtworkResponse {
   int32 views = 6;
   int32 likes = 7;
   string status = 8;
+  int32 lamport_timestamp = 9;
 }

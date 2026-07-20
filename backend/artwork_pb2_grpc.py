@@ -27,8 +27,9 @@ if _version_not_supported:
 
 class ArtworkServiceStub:
     """Service exposed by the Artwork microservice.
-    Consumed by the Recommendation microservice over gRPC
-    instead of a direct DB call.
+    Every RPC now carries a Lamport logical timestamp so both
+    services can maintain a consistent event ordering without
+    relying on synchronized wall-clock time.
     """
 
     def __init__(self, channel):
@@ -51,8 +52,9 @@ class ArtworkServiceStub:
 
 class ArtworkServiceServicer:
     """Service exposed by the Artwork microservice.
-    Consumed by the Recommendation microservice over gRPC
-    instead of a direct DB call.
+    Every RPC now carries a Lamport logical timestamp so both
+    services can maintain a consistent event ordering without
+    relying on synchronized wall-clock time.
     """
 
     def GetArtwork(self, request, context):
@@ -90,8 +92,9 @@ def add_ArtworkServiceServicer_to_server(servicer, server):
  # This class is part of an EXPERIMENTAL API.
 class ArtworkService:
     """Service exposed by the Artwork microservice.
-    Consumed by the Recommendation microservice over gRPC
-    instead of a direct DB call.
+    Every RPC now carries a Lamport logical timestamp so both
+    services can maintain a consistent event ordering without
+    relying on synchronized wall-clock time.
     """
 
     @staticmethod

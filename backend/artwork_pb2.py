@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rartwork.proto\x12\x0b\x61rtistalley\"$\n\x0e\x41rtworkRequest\x12\x12\n\nartwork_id\x18\x01 \x01(\x05\"#\n\x0f\x43\x61tegoryRequest\x12\x10\n\x08\x63\x61tegory\x18\x01 \x01(\t\"\x93\x01\n\x0f\x41rtworkResponse\x12\x12\n\nartwork_id\x18\x01 \x01(\x05\x12\r\n\x05title\x18\x02 \x01(\t\x12\x0e\n\x06\x61rtist\x18\x03 \x01(\t\x12\x10\n\x08\x63\x61tegory\x18\x04 \x01(\t\x12\r\n\x05price\x18\x05 \x01(\x01\x12\r\n\x05views\x18\x06 \x01(\x05\x12\r\n\x05likes\x18\x07 \x01(\x05\x12\x0e\n\x06status\x18\x08 \x01(\t2\xb1\x01\n\x0e\x41rtworkService\x12G\n\nGetArtwork\x12\x1b.artistalley.ArtworkRequest\x1a\x1c.artistalley.ArtworkResponse\x12V\n\x16ListArtworksByCategory\x12\x1c.artistalley.CategoryRequest\x1a\x1c.artistalley.ArtworkResponse0\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rartwork.proto\x12\x0b\x61rtistalley\"?\n\x0e\x41rtworkRequest\x12\x12\n\nartwork_id\x18\x01 \x01(\x05\x12\x19\n\x11lamport_timestamp\x18\x02 \x01(\x05\">\n\x0f\x43\x61tegoryRequest\x12\x10\n\x08\x63\x61tegory\x18\x01 \x01(\t\x12\x19\n\x11lamport_timestamp\x18\x02 \x01(\x05\"\xae\x01\n\x0f\x41rtworkResponse\x12\x12\n\nartwork_id\x18\x01 \x01(\x05\x12\r\n\x05title\x18\x02 \x01(\t\x12\x0e\n\x06\x61rtist\x18\x03 \x01(\t\x12\x10\n\x08\x63\x61tegory\x18\x04 \x01(\t\x12\r\n\x05price\x18\x05 \x01(\x01\x12\r\n\x05views\x18\x06 \x01(\x05\x12\r\n\x05likes\x18\x07 \x01(\x05\x12\x0e\n\x06status\x18\x08 \x01(\t\x12\x19\n\x11lamport_timestamp\x18\t \x01(\x05\x32\xb1\x01\n\x0e\x41rtworkService\x12G\n\nGetArtwork\x12\x1b.artistalley.ArtworkRequest\x1a\x1c.artistalley.ArtworkResponse\x12V\n\x16ListArtworksByCategory\x12\x1c.artistalley.CategoryRequest\x1a\x1c.artistalley.ArtworkResponse0\x01\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -32,11 +32,11 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'artwork_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
   _globals['_ARTWORKREQUEST']._serialized_start=30
-  _globals['_ARTWORKREQUEST']._serialized_end=66
-  _globals['_CATEGORYREQUEST']._serialized_start=68
-  _globals['_CATEGORYREQUEST']._serialized_end=103
-  _globals['_ARTWORKRESPONSE']._serialized_start=106
-  _globals['_ARTWORKRESPONSE']._serialized_end=253
-  _globals['_ARTWORKSERVICE']._serialized_start=256
-  _globals['_ARTWORKSERVICE']._serialized_end=433
+  _globals['_ARTWORKREQUEST']._serialized_end=93
+  _globals['_CATEGORYREQUEST']._serialized_start=95
+  _globals['_CATEGORYREQUEST']._serialized_end=157
+  _globals['_ARTWORKRESPONSE']._serialized_start=160
+  _globals['_ARTWORKRESPONSE']._serialized_end=334
+  _globals['_ARTWORKSERVICE']._serialized_start=337
+  _globals['_ARTWORKSERVICE']._serialized_end=514
 # @@protoc_insertion_point(module_scope)
