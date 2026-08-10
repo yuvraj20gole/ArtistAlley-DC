@@ -150,3 +150,199 @@ class ArtworkService:
             timeout,
             metadata,
             _registered_method=True)
+
+
+class MutexServiceStub:
+    """--- Experiment 4: Peer-to-peer mutual exclusion (Ricart-Agrawala) ---
+    Every Artist node runs this server AND calls it on its peers.
+    """
+
+    def __init__(self, channel):
+        """Constructor.
+
+        Args:
+            channel: A grpc.Channel.
+        """
+        self.RequestAccess = channel.unary_unary(
+                '/artistalley.MutexService/RequestAccess',
+                request_serializer=artwork__pb2.AccessRequest.SerializeToString,
+                response_deserializer=artwork__pb2.AccessReply.FromString,
+                _registered_method=True)
+
+
+class MutexServiceServicer:
+    """--- Experiment 4: Peer-to-peer mutual exclusion (Ricart-Agrawala) ---
+    Every Artist node runs this server AND calls it on its peers.
+    """
+
+    def RequestAccess(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+
+def add_MutexServiceServicer_to_server(servicer, server):
+    rpc_method_handlers = {
+            'RequestAccess': grpc.unary_unary_rpc_method_handler(
+                    servicer.RequestAccess,
+                    request_deserializer=artwork__pb2.AccessRequest.FromString,
+                    response_serializer=artwork__pb2.AccessReply.SerializeToString,
+            ),
+    }
+    generic_handler = grpc.method_handlers_generic_handler(
+            'artistalley.MutexService', rpc_method_handlers)
+    server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('artistalley.MutexService', rpc_method_handlers)
+
+
+ # This class is part of an EXPERIMENTAL API.
+class MutexService:
+    """--- Experiment 4: Peer-to-peer mutual exclusion (Ricart-Agrawala) ---
+    Every Artist node runs this server AND calls it on its peers.
+    """
+
+    @staticmethod
+    def RequestAccess(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/artistalley.MutexService/RequestAccess',
+            artwork__pb2.AccessRequest.SerializeToString,
+            artwork__pb2.AccessReply.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+
+class LockServiceStub:
+    """--- Experiment 5: Deadlock simulation & resolution ---
+    """
+
+    def __init__(self, channel):
+        """Constructor.
+
+        Args:
+            channel: A grpc.Channel.
+        """
+        self.AcquireLock = channel.unary_unary(
+                '/artistalley.LockService/AcquireLock',
+                request_serializer=artwork__pb2.LockRequest.SerializeToString,
+                response_deserializer=artwork__pb2.LockReply.FromString,
+                _registered_method=True)
+        self.ReleaseLock = channel.unary_unary(
+                '/artistalley.LockService/ReleaseLock',
+                request_serializer=artwork__pb2.LockRequest.SerializeToString,
+                response_deserializer=artwork__pb2.LockReply.FromString,
+                _registered_method=True)
+
+
+class LockServiceServicer:
+    """--- Experiment 5: Deadlock simulation & resolution ---
+    """
+
+    def AcquireLock(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ReleaseLock(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+
+def add_LockServiceServicer_to_server(servicer, server):
+    rpc_method_handlers = {
+            'AcquireLock': grpc.unary_unary_rpc_method_handler(
+                    servicer.AcquireLock,
+                    request_deserializer=artwork__pb2.LockRequest.FromString,
+                    response_serializer=artwork__pb2.LockReply.SerializeToString,
+            ),
+            'ReleaseLock': grpc.unary_unary_rpc_method_handler(
+                    servicer.ReleaseLock,
+                    request_deserializer=artwork__pb2.LockRequest.FromString,
+                    response_serializer=artwork__pb2.LockReply.SerializeToString,
+            ),
+    }
+    generic_handler = grpc.method_handlers_generic_handler(
+            'artistalley.LockService', rpc_method_handlers)
+    server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('artistalley.LockService', rpc_method_handlers)
+
+
+ # This class is part of an EXPERIMENTAL API.
+class LockService:
+    """--- Experiment 5: Deadlock simulation & resolution ---
+    """
+
+    @staticmethod
+    def AcquireLock(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/artistalley.LockService/AcquireLock',
+            artwork__pb2.LockRequest.SerializeToString,
+            artwork__pb2.LockReply.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ReleaseLock(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/artistalley.LockService/ReleaseLock',
+            artwork__pb2.LockRequest.SerializeToString,
+            artwork__pb2.LockReply.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
