@@ -346,3 +346,90 @@ class LockService:
             timeout,
             metadata,
             _registered_method=True)
+
+
+class ProctorServiceStub:
+    """--- Experiment 6: Least Connections load balancing ---
+    Proctoring servers verify submissions. The LoadBalancer sits in
+    front of N identical ProctorService backends and routes each
+    incoming request to whichever backend currently has the fewest
+    active (in-flight) connections.
+    """
+
+    def __init__(self, channel):
+        """Constructor.
+
+        Args:
+            channel: A grpc.Channel.
+        """
+        self.VerifySubmission = channel.unary_unary(
+                '/artistalley.ProctorService/VerifySubmission',
+                request_serializer=artwork__pb2.VerifyRequest.SerializeToString,
+                response_deserializer=artwork__pb2.VerifyReply.FromString,
+                _registered_method=True)
+
+
+class ProctorServiceServicer:
+    """--- Experiment 6: Least Connections load balancing ---
+    Proctoring servers verify submissions. The LoadBalancer sits in
+    front of N identical ProctorService backends and routes each
+    incoming request to whichever backend currently has the fewest
+    active (in-flight) connections.
+    """
+
+    def VerifySubmission(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+
+def add_ProctorServiceServicer_to_server(servicer, server):
+    rpc_method_handlers = {
+            'VerifySubmission': grpc.unary_unary_rpc_method_handler(
+                    servicer.VerifySubmission,
+                    request_deserializer=artwork__pb2.VerifyRequest.FromString,
+                    response_serializer=artwork__pb2.VerifyReply.SerializeToString,
+            ),
+    }
+    generic_handler = grpc.method_handlers_generic_handler(
+            'artistalley.ProctorService', rpc_method_handlers)
+    server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('artistalley.ProctorService', rpc_method_handlers)
+
+
+ # This class is part of an EXPERIMENTAL API.
+class ProctorService:
+    """--- Experiment 6: Least Connections load balancing ---
+    Proctoring servers verify submissions. The LoadBalancer sits in
+    front of N identical ProctorService backends and routes each
+    incoming request to whichever backend currently has the fewest
+    active (in-flight) connections.
+    """
+
+    @staticmethod
+    def VerifySubmission(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/artistalley.ProctorService/VerifySubmission',
+            artwork__pb2.VerifyRequest.SerializeToString,
+            artwork__pb2.VerifyReply.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

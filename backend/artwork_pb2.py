@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rartwork.proto\x12\x0b\x61rtistalley\"?\n\x0e\x41rtworkRequest\x12\x12\n\nartwork_id\x18\x01 \x01(\x05\x12\x19\n\x11lamport_timestamp\x18\x02 \x01(\x05\">\n\x0f\x43\x61tegoryRequest\x12\x10\n\x08\x63\x61tegory\x18\x01 \x01(\t\x12\x19\n\x11lamport_timestamp\x18\x02 \x01(\x05\"\xae\x01\n\x0f\x41rtworkResponse\x12\x12\n\nartwork_id\x18\x01 \x01(\x05\x12\r\n\x05title\x18\x02 \x01(\t\x12\x0e\n\x06\x61rtist\x18\x03 \x01(\t\x12\x10\n\x08\x63\x61tegory\x18\x04 \x01(\t\x12\r\n\x05price\x18\x05 \x01(\x01\x12\r\n\x05views\x18\x06 \x01(\x05\x12\r\n\x05likes\x18\x07 \x01(\x05\x12\x0e\n\x06status\x18\x08 \x01(\t\x12\x19\n\x11lamport_timestamp\x18\t \x01(\x05\"3\n\rAccessRequest\x12\x0f\n\x07node_id\x18\x01 \x01(\x05\x12\x11\n\ttimestamp\x18\x02 \x01(\x05\"1\n\x0b\x41\x63\x63\x65ssReply\x12\x0f\n\x07node_id\x18\x01 \x01(\x05\x12\x11\n\ttimestamp\x18\x02 \x01(\x05\"H\n\x0bLockRequest\x12\x13\n\x0bresource_id\x18\x01 \x01(\t\x12\x11\n\tholder_id\x18\x02 \x01(\x05\x12\x11\n\ttimestamp\x18\x03 \x01(\x05\"-\n\tLockReply\x12\x0f\n\x07granted\x18\x01 \x01(\x08\x12\x0f\n\x07message\x18\x02 \x01(\t2\xb1\x01\n\x0e\x41rtworkService\x12G\n\nGetArtwork\x12\x1b.artistalley.ArtworkRequest\x1a\x1c.artistalley.ArtworkResponse\x12V\n\x16ListArtworksByCategory\x12\x1c.artistalley.CategoryRequest\x1a\x1c.artistalley.ArtworkResponse0\x01\x32U\n\x0cMutexService\x12\x45\n\rRequestAccess\x12\x1a.artistalley.AccessRequest\x1a\x18.artistalley.AccessReply2\x8f\x01\n\x0bLockService\x12?\n\x0b\x41\x63quireLock\x12\x18.artistalley.LockRequest\x1a\x16.artistalley.LockReply\x12?\n\x0bReleaseLock\x12\x18.artistalley.LockRequest\x1a\x16.artistalley.LockReplyb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rartwork.proto\x12\x0b\x61rtistalley\"?\n\x0e\x41rtworkRequest\x12\x12\n\nartwork_id\x18\x01 \x01(\x05\x12\x19\n\x11lamport_timestamp\x18\x02 \x01(\x05\">\n\x0f\x43\x61tegoryRequest\x12\x10\n\x08\x63\x61tegory\x18\x01 \x01(\t\x12\x19\n\x11lamport_timestamp\x18\x02 \x01(\x05\"\xae\x01\n\x0f\x41rtworkResponse\x12\x12\n\nartwork_id\x18\x01 \x01(\x05\x12\r\n\x05title\x18\x02 \x01(\t\x12\x0e\n\x06\x61rtist\x18\x03 \x01(\t\x12\x10\n\x08\x63\x61tegory\x18\x04 \x01(\t\x12\r\n\x05price\x18\x05 \x01(\x01\x12\r\n\x05views\x18\x06 \x01(\x05\x12\r\n\x05likes\x18\x07 \x01(\x05\x12\x0e\n\x06status\x18\x08 \x01(\t\x12\x19\n\x11lamport_timestamp\x18\t \x01(\x05\"3\n\rAccessRequest\x12\x0f\n\x07node_id\x18\x01 \x01(\x05\x12\x11\n\ttimestamp\x18\x02 \x01(\x05\"1\n\x0b\x41\x63\x63\x65ssReply\x12\x0f\n\x07node_id\x18\x01 \x01(\x05\x12\x11\n\ttimestamp\x18\x02 \x01(\x05\"H\n\x0bLockRequest\x12\x13\n\x0bresource_id\x18\x01 \x01(\t\x12\x11\n\tholder_id\x18\x02 \x01(\x05\x12\x11\n\ttimestamp\x18\x03 \x01(\x05\"-\n\tLockReply\x12\x0f\n\x07granted\x18\x01 \x01(\x08\x12\x0f\n\x07message\x18\x02 \x01(\t\"A\n\rVerifyRequest\x12\x15\n\rsubmission_id\x18\x01 \x01(\x05\x12\x19\n\x11lamport_timestamp\x18\x02 \x01(\x05\"d\n\x0bVerifyReply\x12\x15\n\rsubmission_id\x18\x01 \x01(\x05\x12\x13\n\x0bverified_by\x18\x02 \x01(\t\x12\x0e\n\x06status\x18\x03 \x01(\t\x12\x19\n\x11lamport_timestamp\x18\x04 \x01(\x05\x32\xb1\x01\n\x0e\x41rtworkService\x12G\n\nGetArtwork\x12\x1b.artistalley.ArtworkRequest\x1a\x1c.artistalley.ArtworkResponse\x12V\n\x16ListArtworksByCategory\x12\x1c.artistalley.CategoryRequest\x1a\x1c.artistalley.ArtworkResponse0\x01\x32U\n\x0cMutexService\x12\x45\n\rRequestAccess\x12\x1a.artistalley.AccessRequest\x1a\x18.artistalley.AccessReply2\x8f\x01\n\x0bLockService\x12?\n\x0b\x41\x63quireLock\x12\x18.artistalley.LockRequest\x1a\x16.artistalley.LockReply\x12?\n\x0bReleaseLock\x12\x18.artistalley.LockRequest\x1a\x16.artistalley.LockReply2Z\n\x0eProctorService\x12H\n\x10VerifySubmission\x12\x1a.artistalley.VerifyRequest\x1a\x18.artistalley.VerifyReplyb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -45,10 +45,16 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_LOCKREQUEST']._serialized_end=512
   _globals['_LOCKREPLY']._serialized_start=514
   _globals['_LOCKREPLY']._serialized_end=559
-  _globals['_ARTWORKSERVICE']._serialized_start=562
-  _globals['_ARTWORKSERVICE']._serialized_end=739
-  _globals['_MUTEXSERVICE']._serialized_start=741
-  _globals['_MUTEXSERVICE']._serialized_end=826
-  _globals['_LOCKSERVICE']._serialized_start=829
-  _globals['_LOCKSERVICE']._serialized_end=972
+  _globals['_VERIFYREQUEST']._serialized_start=561
+  _globals['_VERIFYREQUEST']._serialized_end=626
+  _globals['_VERIFYREPLY']._serialized_start=628
+  _globals['_VERIFYREPLY']._serialized_end=728
+  _globals['_ARTWORKSERVICE']._serialized_start=731
+  _globals['_ARTWORKSERVICE']._serialized_end=908
+  _globals['_MUTEXSERVICE']._serialized_start=910
+  _globals['_MUTEXSERVICE']._serialized_end=995
+  _globals['_LOCKSERVICE']._serialized_start=998
+  _globals['_LOCKSERVICE']._serialized_end=1141
+  _globals['_PROCTORSERVICE']._serialized_start=1143
+  _globals['_PROCTORSERVICE']._serialized_end=1233
 # @@protoc_insertion_point(module_scope)
