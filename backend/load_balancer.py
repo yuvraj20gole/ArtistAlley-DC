@@ -1,6 +1,6 @@
 """
 load_balancer.py - Least Connections load balancer in front of N
-Proctoring Server backends. Simulates M incoming submission requests
+Media Service backends. Simulates M incoming artwork image uploads
 arriving concurrently and routes each to the backend with the
 fewest currently-active (in-flight) connections.
 """
@@ -14,7 +14,6 @@ import artwork_pb2_grpc
 BACKENDS = ["localhost:60201", "localhost:60202", "localhost:60203"]
 NUM_REQUESTS = 9
 
-# active[] tracks in-flight connection count per backend index
 active = [0] * len(BACKENDS)
 lock = threading.Lock()
 clock = 0
@@ -47,27 +46,27 @@ def release(idx):
               f"(active connections now: {active})")
 
 
-def handle_request(submission_id):
+def handle_request(image_id):
     idx = pick_least_connections()
     addr = BACKENDS[idx]
     ts = tick()
     try:
         with grpc.insecure_channel(addr) as channel:
-            stub = artwork_pb2_grpc.ProctorServiceStub(channel)
-            reply = stub.VerifySubmission(
-                artwork_pb2.VerifyRequest(submission_id=submission_id, lamport_timestamp=ts))
-            print(f"[LB] Submission {submission_id} -> verified by {reply.verified_by}")
+            stub = artwork_pb2_grpc.MediaServiceStub(channel)
+            reply = stub.ProcessImage(
+                artwork_pb2.ImageRequest(image_id=image_id, lamport_timestamp=ts))
+            print(f"[LB] Image {image_id} -> processed by {reply.processed_by}")
     finally:
         release(idx)
 
 
 def main():
     print(f"[LB] Load Balancer starting. Backends: {BACKENDS}")
-    print(f"[LB] Dispatching {NUM_REQUESTS} submissions using Least Connections...\n")
+    print(f"[LB] Dispatching {NUM_REQUESTS} artwork image uploads using Least Connections...\n")
 
     threads = []
-    for sub_id in range(1, NUM_REQUESTS + 1):
-        t = threading.Thread(target=handle_request, args=(sub_id,))
+    for img_id in range(1, NUM_REQUESTS + 1):
+        t = threading.Thread(target=handle_request, args=(img_id,))
         threads.append(t)
         t.start()
         time.sleep(0.15)  # stagger arrivals slightly, like real traffic
@@ -75,7 +74,7 @@ def main():
     for t in threads:
         t.join()
 
-    print("\n[LB] All submissions processed.")
+    print("\n[LB] All image uploads processed.")
     print(f"[LB] Final active connection counts (should all be 0): {active}")
 
 

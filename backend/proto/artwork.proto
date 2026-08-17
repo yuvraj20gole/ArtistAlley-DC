@@ -67,22 +67,24 @@ message LockReply {
 }
 
 // --- Experiment 6: Least Connections load balancing ---
-// Proctoring servers verify submissions. The LoadBalancer sits in
-// front of N identical ProctorService backends and routes each
-// incoming request to whichever backend currently has the fewest
-// active (in-flight) connections.
-service ProctorService {
-  rpc VerifySubmission (VerifyRequest) returns (VerifyReply);
+// Media Service replicas handle artwork image uploads/processing
+// (resize, thumbnail generation, metadata extraction) - genuinely
+// variable-latency work depending on file size/resolution. The
+// LoadBalancer sits in front of N identical MediaService backends
+// and routes each incoming upload to whichever backend currently
+// has the fewest active (in-flight) connections.
+service MediaService {
+  rpc ProcessImage (ImageRequest) returns (ImageReply);
 }
 
-message VerifyRequest {
-  int32 submission_id = 1;
+message ImageRequest {
+  int32 image_id = 1;
   int32 lamport_timestamp = 2;
 }
 
-message VerifyReply {
-  int32 submission_id = 1;
-  string verified_by = 2;
+message ImageReply {
+  int32 image_id = 1;
+  string processed_by = 2;
   string status = 3;
   int32 lamport_timestamp = 4;
 }

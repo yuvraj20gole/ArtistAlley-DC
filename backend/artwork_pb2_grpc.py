@@ -348,12 +348,14 @@ class LockService:
             _registered_method=True)
 
 
-class ProctorServiceStub:
+class MediaServiceStub:
     """--- Experiment 6: Least Connections load balancing ---
-    Proctoring servers verify submissions. The LoadBalancer sits in
-    front of N identical ProctorService backends and routes each
-    incoming request to whichever backend currently has the fewest
-    active (in-flight) connections.
+    Media Service replicas handle artwork image uploads/processing
+    (resize, thumbnail generation, metadata extraction) - genuinely
+    variable-latency work depending on file size/resolution. The
+    LoadBalancer sits in front of N identical MediaService backends
+    and routes each incoming upload to whichever backend currently
+    has the fewest active (in-flight) connections.
     """
 
     def __init__(self, channel):
@@ -362,53 +364,57 @@ class ProctorServiceStub:
         Args:
             channel: A grpc.Channel.
         """
-        self.VerifySubmission = channel.unary_unary(
-                '/artistalley.ProctorService/VerifySubmission',
-                request_serializer=artwork__pb2.VerifyRequest.SerializeToString,
-                response_deserializer=artwork__pb2.VerifyReply.FromString,
+        self.ProcessImage = channel.unary_unary(
+                '/artistalley.MediaService/ProcessImage',
+                request_serializer=artwork__pb2.ImageRequest.SerializeToString,
+                response_deserializer=artwork__pb2.ImageReply.FromString,
                 _registered_method=True)
 
 
-class ProctorServiceServicer:
+class MediaServiceServicer:
     """--- Experiment 6: Least Connections load balancing ---
-    Proctoring servers verify submissions. The LoadBalancer sits in
-    front of N identical ProctorService backends and routes each
-    incoming request to whichever backend currently has the fewest
-    active (in-flight) connections.
+    Media Service replicas handle artwork image uploads/processing
+    (resize, thumbnail generation, metadata extraction) - genuinely
+    variable-latency work depending on file size/resolution. The
+    LoadBalancer sits in front of N identical MediaService backends
+    and routes each incoming upload to whichever backend currently
+    has the fewest active (in-flight) connections.
     """
 
-    def VerifySubmission(self, request, context):
+    def ProcessImage(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
 
-def add_ProctorServiceServicer_to_server(servicer, server):
+def add_MediaServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'VerifySubmission': grpc.unary_unary_rpc_method_handler(
-                    servicer.VerifySubmission,
-                    request_deserializer=artwork__pb2.VerifyRequest.FromString,
-                    response_serializer=artwork__pb2.VerifyReply.SerializeToString,
+            'ProcessImage': grpc.unary_unary_rpc_method_handler(
+                    servicer.ProcessImage,
+                    request_deserializer=artwork__pb2.ImageRequest.FromString,
+                    response_serializer=artwork__pb2.ImageReply.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'artistalley.ProctorService', rpc_method_handlers)
+            'artistalley.MediaService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('artistalley.ProctorService', rpc_method_handlers)
+    server.add_registered_method_handlers('artistalley.MediaService', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
-class ProctorService:
+class MediaService:
     """--- Experiment 6: Least Connections load balancing ---
-    Proctoring servers verify submissions. The LoadBalancer sits in
-    front of N identical ProctorService backends and routes each
-    incoming request to whichever backend currently has the fewest
-    active (in-flight) connections.
+    Media Service replicas handle artwork image uploads/processing
+    (resize, thumbnail generation, metadata extraction) - genuinely
+    variable-latency work depending on file size/resolution. The
+    LoadBalancer sits in front of N identical MediaService backends
+    and routes each incoming upload to whichever backend currently
+    has the fewest active (in-flight) connections.
     """
 
     @staticmethod
-    def VerifySubmission(request,
+    def ProcessImage(request,
             target,
             options=(),
             channel_credentials=None,
@@ -421,9 +427,9 @@ class ProctorService:
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/artistalley.ProctorService/VerifySubmission',
-            artwork__pb2.VerifyRequest.SerializeToString,
-            artwork__pb2.VerifyReply.FromString,
+            '/artistalley.MediaService/ProcessImage',
+            artwork__pb2.ImageRequest.SerializeToString,
+            artwork__pb2.ImageReply.FromString,
             options,
             channel_credentials,
             insecure,
