@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rartwork.proto\x12\x0b\x61rtistalley\"?\n\x0e\x41rtworkRequest\x12\x12\n\nartwork_id\x18\x01 \x01(\x05\x12\x19\n\x11lamport_timestamp\x18\x02 \x01(\x05\">\n\x0f\x43\x61tegoryRequest\x12\x10\n\x08\x63\x61tegory\x18\x01 \x01(\t\x12\x19\n\x11lamport_timestamp\x18\x02 \x01(\x05\"\xae\x01\n\x0f\x41rtworkResponse\x12\x12\n\nartwork_id\x18\x01 \x01(\x05\x12\r\n\x05title\x18\x02 \x01(\t\x12\x0e\n\x06\x61rtist\x18\x03 \x01(\t\x12\x10\n\x08\x63\x61tegory\x18\x04 \x01(\t\x12\r\n\x05price\x18\x05 \x01(\x01\x12\r\n\x05views\x18\x06 \x01(\x05\x12\r\n\x05likes\x18\x07 \x01(\x05\x12\x0e\n\x06status\x18\x08 \x01(\t\x12\x19\n\x11lamport_timestamp\x18\t \x01(\x05\"3\n\rAccessRequest\x12\x0f\n\x07node_id\x18\x01 \x01(\x05\x12\x11\n\ttimestamp\x18\x02 \x01(\x05\"1\n\x0b\x41\x63\x63\x65ssReply\x12\x0f\n\x07node_id\x18\x01 \x01(\x05\x12\x11\n\ttimestamp\x18\x02 \x01(\x05\"H\n\x0bLockRequest\x12\x13\n\x0bresource_id\x18\x01 \x01(\t\x12\x11\n\tholder_id\x18\x02 \x01(\x05\x12\x11\n\ttimestamp\x18\x03 \x01(\x05\"-\n\tLockReply\x12\x0f\n\x07granted\x18\x01 \x01(\x08\x12\x0f\n\x07message\x18\x02 \x01(\t\";\n\x0cImageRequest\x12\x10\n\x08image_id\x18\x01 \x01(\x05\x12\x19\n\x11lamport_timestamp\x18\x02 \x01(\x05\"_\n\nImageReply\x12\x10\n\x08image_id\x18\x01 \x01(\x05\x12\x14\n\x0cprocessed_by\x18\x02 \x01(\t\x12\x0e\n\x06status\x18\x03 \x01(\t\x12\x19\n\x11lamport_timestamp\x18\x04 \x01(\x05\x32\xb1\x01\n\x0e\x41rtworkService\x12G\n\nGetArtwork\x12\x1b.artistalley.ArtworkRequest\x1a\x1c.artistalley.ArtworkResponse\x12V\n\x16ListArtworksByCategory\x12\x1c.artistalley.CategoryRequest\x1a\x1c.artistalley.ArtworkResponse0\x01\x32U\n\x0cMutexService\x12\x45\n\rRequestAccess\x12\x1a.artistalley.AccessRequest\x1a\x18.artistalley.AccessReply2\x8f\x01\n\x0bLockService\x12?\n\x0b\x41\x63quireLock\x12\x18.artistalley.LockRequest\x1a\x16.artistalley.LockReply\x12?\n\x0bReleaseLock\x12\x18.artistalley.LockRequest\x1a\x16.artistalley.LockReply2R\n\x0cMediaService\x12\x42\n\x0cProcessImage\x12\x19.artistalley.ImageRequest\x1a\x17.artistalley.ImageReplyb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rartwork.proto\x12\x0b\x61rtistalley\"?\n\x0e\x41rtworkRequest\x12\x12\n\nartwork_id\x18\x01 \x01(\x05\x12\x19\n\x11lamport_timestamp\x18\x02 \x01(\x05\">\n\x0f\x43\x61tegoryRequest\x12\x10\n\x08\x63\x61tegory\x18\x01 \x01(\t\x12\x19\n\x11lamport_timestamp\x18\x02 \x01(\x05\"\xae\x01\n\x0f\x41rtworkResponse\x12\x12\n\nartwork_id\x18\x01 \x01(\x05\x12\r\n\x05title\x18\x02 \x01(\t\x12\x0e\n\x06\x61rtist\x18\x03 \x01(\t\x12\x10\n\x08\x63\x61tegory\x18\x04 \x01(\t\x12\r\n\x05price\x18\x05 \x01(\x01\x12\r\n\x05views\x18\x06 \x01(\x05\x12\r\n\x05likes\x18\x07 \x01(\x05\x12\x0e\n\x06status\x18\x08 \x01(\t\x12\x19\n\x11lamport_timestamp\x18\t \x01(\x05\"3\n\rAccessRequest\x12\x0f\n\x07node_id\x18\x01 \x01(\x05\x12\x11\n\ttimestamp\x18\x02 \x01(\x05\"1\n\x0b\x41\x63\x63\x65ssReply\x12\x0f\n\x07node_id\x18\x01 \x01(\x05\x12\x11\n\ttimestamp\x18\x02 \x01(\x05\"H\n\x0bLockRequest\x12\x13\n\x0bresource_id\x18\x01 \x01(\t\x12\x11\n\tholder_id\x18\x02 \x01(\x05\x12\x11\n\ttimestamp\x18\x03 \x01(\x05\"-\n\tLockReply\x12\x0f\n\x07granted\x18\x01 \x01(\x08\x12\x0f\n\x07message\x18\x02 \x01(\t\";\n\x0cImageRequest\x12\x10\n\x08image_id\x18\x01 \x01(\x05\x12\x19\n\x11lamport_timestamp\x18\x02 \x01(\x05\"_\n\nImageReply\x12\x10\n\x08image_id\x18\x01 \x01(\x05\x12\x14\n\x0cprocessed_by\x18\x02 \x01(\t\x12\x0e\n\x06status\x18\x03 \x01(\t\x12\x19\n\x11lamport_timestamp\x18\x04 \x01(\x05\"c\n\x0b\x44raftUpdate\x12\x10\n\x08\x64raft_id\x18\x01 \x01(\t\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\t\x12\x19\n\x11lamport_timestamp\x18\x03 \x01(\x05\x12\x16\n\x0eorigin_replica\x18\x04 \x01(\t\"G\n\x07SaveAck\x12\x10\n\x08\x61\x63\x63\x65pted\x18\x01 \x01(\x08\x12\x0f\n\x07replica\x18\x02 \x01(\t\x12\x19\n\x11lamport_timestamp\x18\x03 \x01(\x05\"\x1e\n\nDraftQuery\x12\x10\n\x08\x64raft_id\x18\x01 \x01(\t\"b\n\nDraftState\x12\x10\n\x08\x64raft_id\x18\x01 \x01(\t\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\t\x12\x19\n\x11lamport_timestamp\x18\x03 \x01(\x05\x12\x16\n\x0eorigin_replica\x18\x04 \x01(\t2\xb1\x01\n\x0e\x41rtworkService\x12G\n\nGetArtwork\x12\x1b.artistalley.ArtworkRequest\x1a\x1c.artistalley.ArtworkResponse\x12V\n\x16ListArtworksByCategory\x12\x1c.artistalley.CategoryRequest\x1a\x1c.artistalley.ArtworkResponse0\x01\x32U\n\x0cMutexService\x12\x45\n\rRequestAccess\x12\x1a.artistalley.AccessRequest\x1a\x18.artistalley.AccessReply2\x8f\x01\n\x0bLockService\x12?\n\x0b\x41\x63quireLock\x12\x18.artistalley.LockRequest\x1a\x16.artistalley.LockReply\x12?\n\x0bReleaseLock\x12\x18.artistalley.LockRequest\x1a\x16.artistalley.LockReply2R\n\x0cMediaService\x12\x42\n\x0cProcessImage\x12\x19.artistalley.ImageRequest\x1a\x17.artistalley.ImageReply2\xc7\x01\n\x0c\x44raftService\x12;\n\tSaveDraft\x12\x18.artistalley.DraftUpdate\x1a\x14.artistalley.SaveAck\x12<\n\nSyncUpdate\x12\x18.artistalley.DraftUpdate\x1a\x14.artistalley.SaveAck\x12<\n\x08GetDraft\x12\x17.artistalley.DraftQuery\x1a\x17.artistalley.DraftStateb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -49,12 +49,22 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_IMAGEREQUEST']._serialized_end=620
   _globals['_IMAGEREPLY']._serialized_start=622
   _globals['_IMAGEREPLY']._serialized_end=717
-  _globals['_ARTWORKSERVICE']._serialized_start=720
-  _globals['_ARTWORKSERVICE']._serialized_end=897
-  _globals['_MUTEXSERVICE']._serialized_start=899
-  _globals['_MUTEXSERVICE']._serialized_end=984
-  _globals['_LOCKSERVICE']._serialized_start=987
-  _globals['_LOCKSERVICE']._serialized_end=1130
-  _globals['_MEDIASERVICE']._serialized_start=1132
-  _globals['_MEDIASERVICE']._serialized_end=1214
+  _globals['_DRAFTUPDATE']._serialized_start=719
+  _globals['_DRAFTUPDATE']._serialized_end=818
+  _globals['_SAVEACK']._serialized_start=820
+  _globals['_SAVEACK']._serialized_end=891
+  _globals['_DRAFTQUERY']._serialized_start=893
+  _globals['_DRAFTQUERY']._serialized_end=923
+  _globals['_DRAFTSTATE']._serialized_start=925
+  _globals['_DRAFTSTATE']._serialized_end=1023
+  _globals['_ARTWORKSERVICE']._serialized_start=1026
+  _globals['_ARTWORKSERVICE']._serialized_end=1203
+  _globals['_MUTEXSERVICE']._serialized_start=1205
+  _globals['_MUTEXSERVICE']._serialized_end=1290
+  _globals['_LOCKSERVICE']._serialized_start=1293
+  _globals['_LOCKSERVICE']._serialized_end=1436
+  _globals['_MEDIASERVICE']._serialized_start=1438
+  _globals['_MEDIASERVICE']._serialized_end=1520
+  _globals['_DRAFTSERVICE']._serialized_start=1523
+  _globals['_DRAFTSERVICE']._serialized_end=1722
 # @@protoc_insertion_point(module_scope)

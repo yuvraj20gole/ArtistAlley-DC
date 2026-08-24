@@ -88,3 +88,39 @@ message ImageReply {
   string status = 3;
   int32 lamport_timestamp = 4;
 }
+
+// --- Experiment 7: Eventual Consistency for auto-save sync ---
+// Draft replicas accept auto-save writes locally and immediately
+// (availability first), then asynchronously gossip the update to
+// peer replicas. Conflicts are resolved with Last-Write-Wins using
+// the Lamport timestamp - reusing the same clock discipline as
+// Experiment 3. All replicas eventually converge to the same state.
+service DraftService {
+  rpc SaveDraft (DraftUpdate) returns (SaveAck);
+  rpc SyncUpdate (DraftUpdate) returns (SaveAck);
+  rpc GetDraft (DraftQuery) returns (DraftState);
+}
+
+message DraftUpdate {
+  string draft_id = 1;
+  string content = 2;
+  int32 lamport_timestamp = 3;
+  string origin_replica = 4;
+}
+
+message SaveAck {
+  bool accepted = 1;
+  string replica = 2;
+  int32 lamport_timestamp = 3;
+}
+
+message DraftQuery {
+  string draft_id = 1;
+}
+
+message DraftState {
+  string draft_id = 1;
+  string content = 2;
+  int32 lamport_timestamp = 3;
+  string origin_replica = 4;
+}

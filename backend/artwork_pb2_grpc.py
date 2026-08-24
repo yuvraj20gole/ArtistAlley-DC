@@ -439,3 +439,179 @@ class MediaService:
             timeout,
             metadata,
             _registered_method=True)
+
+
+class DraftServiceStub:
+    """--- Experiment 7: Eventual Consistency for auto-save sync ---
+    Draft replicas accept auto-save writes locally and immediately
+    (availability first), then asynchronously gossip the update to
+    peer replicas. Conflicts are resolved with Last-Write-Wins using
+    the Lamport timestamp - reusing the same clock discipline as
+    Experiment 3. All replicas eventually converge to the same state.
+    """
+
+    def __init__(self, channel):
+        """Constructor.
+
+        Args:
+            channel: A grpc.Channel.
+        """
+        self.SaveDraft = channel.unary_unary(
+                '/artistalley.DraftService/SaveDraft',
+                request_serializer=artwork__pb2.DraftUpdate.SerializeToString,
+                response_deserializer=artwork__pb2.SaveAck.FromString,
+                _registered_method=True)
+        self.SyncUpdate = channel.unary_unary(
+                '/artistalley.DraftService/SyncUpdate',
+                request_serializer=artwork__pb2.DraftUpdate.SerializeToString,
+                response_deserializer=artwork__pb2.SaveAck.FromString,
+                _registered_method=True)
+        self.GetDraft = channel.unary_unary(
+                '/artistalley.DraftService/GetDraft',
+                request_serializer=artwork__pb2.DraftQuery.SerializeToString,
+                response_deserializer=artwork__pb2.DraftState.FromString,
+                _registered_method=True)
+
+
+class DraftServiceServicer:
+    """--- Experiment 7: Eventual Consistency for auto-save sync ---
+    Draft replicas accept auto-save writes locally and immediately
+    (availability first), then asynchronously gossip the update to
+    peer replicas. Conflicts are resolved with Last-Write-Wins using
+    the Lamport timestamp - reusing the same clock discipline as
+    Experiment 3. All replicas eventually converge to the same state.
+    """
+
+    def SaveDraft(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SyncUpdate(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetDraft(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+
+def add_DraftServiceServicer_to_server(servicer, server):
+    rpc_method_handlers = {
+            'SaveDraft': grpc.unary_unary_rpc_method_handler(
+                    servicer.SaveDraft,
+                    request_deserializer=artwork__pb2.DraftUpdate.FromString,
+                    response_serializer=artwork__pb2.SaveAck.SerializeToString,
+            ),
+            'SyncUpdate': grpc.unary_unary_rpc_method_handler(
+                    servicer.SyncUpdate,
+                    request_deserializer=artwork__pb2.DraftUpdate.FromString,
+                    response_serializer=artwork__pb2.SaveAck.SerializeToString,
+            ),
+            'GetDraft': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetDraft,
+                    request_deserializer=artwork__pb2.DraftQuery.FromString,
+                    response_serializer=artwork__pb2.DraftState.SerializeToString,
+            ),
+    }
+    generic_handler = grpc.method_handlers_generic_handler(
+            'artistalley.DraftService', rpc_method_handlers)
+    server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('artistalley.DraftService', rpc_method_handlers)
+
+
+ # This class is part of an EXPERIMENTAL API.
+class DraftService:
+    """--- Experiment 7: Eventual Consistency for auto-save sync ---
+    Draft replicas accept auto-save writes locally and immediately
+    (availability first), then asynchronously gossip the update to
+    peer replicas. Conflicts are resolved with Last-Write-Wins using
+    the Lamport timestamp - reusing the same clock discipline as
+    Experiment 3. All replicas eventually converge to the same state.
+    """
+
+    @staticmethod
+    def SaveDraft(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/artistalley.DraftService/SaveDraft',
+            artwork__pb2.DraftUpdate.SerializeToString,
+            artwork__pb2.SaveAck.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def SyncUpdate(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/artistalley.DraftService/SyncUpdate',
+            artwork__pb2.DraftUpdate.SerializeToString,
+            artwork__pb2.SaveAck.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetDraft(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/artistalley.DraftService/GetDraft',
+            artwork__pb2.DraftQuery.SerializeToString,
+            artwork__pb2.DraftState.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
