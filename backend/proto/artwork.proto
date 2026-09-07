@@ -124,3 +124,33 @@ message DraftState {
   int32 lamport_timestamp = 3;
   string origin_replica = 4;
 }
+
+// --- Experiment 9: Raft leader election & failover ---
+// Coordinates which Lock Manager replica (from Experiment 5) is
+// currently the active leader. Only the leader accepts client lock
+// requests; if it crashes, followers detect the missed heartbeats
+// and elect a new leader, so coordination is never fully interrupted.
+service RaftService {
+  rpc RequestVote (VoteRequest) returns (VoteReply);
+  rpc AppendEntries (HeartbeatRequest) returns (HeartbeatReply);
+}
+
+message VoteRequest {
+  int32 term = 1;
+  string candidate_id = 2;
+}
+
+message VoteReply {
+  int32 term = 1;
+  bool vote_granted = 2;
+}
+
+message HeartbeatRequest {
+  int32 term = 1;
+  string leader_id = 2;
+}
+
+message HeartbeatReply {
+  int32 term = 1;
+  bool success = 2;
+}
