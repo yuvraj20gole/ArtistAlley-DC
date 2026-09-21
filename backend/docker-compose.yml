@@ -1,0 +1,85 @@
+version: "3.9"
+
+services:
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  artwork-service:
+    build: .
+    command: python server.py
+    ports:
+      - "50051:50051"
+
+  media-1:
+    build: .
+    command: python media_server.py 60201
+    ports:
+      - "60201:60201"
+
+  media-2:
+    build: .
+    command: python media_server.py 60202
+    ports:
+      - "60202:60202"
+
+  media-3:
+    build: .
+    command: python media_server.py 60203
+    ports:
+      - "60203:60203"
+
+  lock-manager:
+    build: .
+    command: python lock_manager.py detect
+    ports:
+      - "60100:60100"
+
+  draft-a:
+    build: .
+    environment:
+      - RUN_ENV=docker
+    command: python draft_replica.py A 60301
+    ports:
+      - "60301:60301"
+
+  draft-b:
+    build: .
+    environment:
+      - RUN_ENV=docker
+    command: python draft_replica.py B 60302
+    ports:
+      - "60302:60302"
+
+  draft-c:
+    build: .
+    environment:
+      - RUN_ENV=docker
+    command: python draft_replica.py C 60303
+    ports:
+      - "60303:60303"
+
+  raft-a:
+    build: .
+    environment:
+      - RUN_ENV=docker
+    command: python raft_node.py A
+    ports:
+      - "60401:60401"
+
+  raft-b:
+    build: .
+    environment:
+      - RUN_ENV=docker
+    command: python raft_node.py B
+    ports:
+      - "60402:60402"
+
+  raft-c:
+    build: .
+    environment:
+      - RUN_ENV=docker
+    command: python raft_node.py C
+    ports:
+      - "60403:60403"

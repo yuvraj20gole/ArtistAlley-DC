@@ -19,12 +19,10 @@ import grpc
 
 import artwork_pb2
 import artwork_pb2_grpc
+import net_config
 
-ALL_REPLICAS = {
-    "A": "localhost:60301",
-    "B": "localhost:60302",
-    "C": "localhost:60303",
-}
+REPLICA_KEYS = {"A": "draft-a", "B": "draft-b", "C": "draft-c"}
+ALL_REPLICAS = {n: net_config.resolve(k) for n, k in REPLICA_KEYS.items()}
 
 
 class DraftReplica(artwork_pb2_grpc.DraftServiceServicer):
@@ -101,7 +99,7 @@ class DraftReplica(artwork_pb2_grpc.DraftServiceServicer):
 def serve(name, port):
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=20))
     artwork_pb2_grpc.add_DraftServiceServicer_to_server(DraftReplica(name), server)
-    server.add_insecure_port(f"localhost:{port}")
+    server.add_insecure_port(f"0.0.0.0:{port}")
     server.start()
     print(f"DraftReplica-{name} listening on localhost:{port}")
     try:

@@ -41,7 +41,7 @@ def serve(port):
     name = f"MediaServer-{port}"
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=20))
     artwork_pb2_grpc.add_MediaServiceServicer_to_server(MediaServicer(name), server)
-    server.add_insecure_port(f"localhost:{port}")
+    server.add_insecure_port(f"0.0.0.0:{port}")
     server.start()
     print(f"{name} listening on localhost:{port}")
     try:

@@ -20,12 +20,10 @@ import grpc
 
 import artwork_pb2
 import artwork_pb2_grpc
+import net_config
 
-ALL_NODES = {
-    "A": "localhost:60401",
-    "B": "localhost:60402",
-    "C": "localhost:60403",
-}
+NODE_KEYS = {"A": "raft-a", "B": "raft-b", "C": "raft-c"}
+ALL_NODES = {n: net_config.resolve(k) for n, k in NODE_KEYS.items()}
 
 HEARTBEAT_INTERVAL = 0.5          # leader sends heartbeats this often
 ELECTION_TIMEOUT_RANGE = (1.5, 3.0)   # followers wait a random time in this range before starting an election
@@ -178,7 +176,7 @@ def serve(node_id):
     artwork_pb2_grpc.add_LockServiceServicer_to_server(node, server)
     addr = ALL_NODES[node_id]
     port = addr.split(":")[1]
-    server.add_insecure_port(f"localhost:{port}")
+    server.add_insecure_port(f"0.0.0.0:{port}")
     server.start()
     print(f"RaftNode-{node_id} listening on {addr}")
 

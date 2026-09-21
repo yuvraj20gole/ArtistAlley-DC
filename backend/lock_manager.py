@@ -77,7 +77,7 @@ class LockManager(artwork_pb2_grpc.LockServiceServicer):
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     artwork_pb2_grpc.add_LockServiceServicer_to_server(LockManager(), server)
-    server.add_insecure_port("localhost:60100")
+    server.add_insecure_port("0.0.0.0:60100")
     server.start()
     print(f"LockManager started on localhost:60100 (deadlock detection = {DETECT})")
     try:
