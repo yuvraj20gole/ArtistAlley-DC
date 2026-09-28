@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: load-test
+spec:
+  backoffLimit: 0
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: load-test
+          image: artistalley-backend:latest
+          imagePullPolicy: Never
+          command: ["python", "load_test.py"]
+          env:
+            - name: ARTWORK_ADDR
+              value: "artwork-service:50051"
+            - name: DRAFT_ADDRS
+              value: "draft-a:60301,draft-b:60302,draft-c:60303"
+            - name: MEDIA_ADDRS
+              value: "media:60201"

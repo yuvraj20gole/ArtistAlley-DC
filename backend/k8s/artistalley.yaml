@@ -1,0 +1,328 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+        - name: redis
+          image: redis:7-alpine
+          ports:
+            - containerPort: 6379
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+spec:
+  selector:
+    app: redis
+  ports:
+    - port: 6379
+      targetPort: 6379
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: artwork-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: artwork-service
+  template:
+    metadata:
+      labels:
+        app: artwork-service
+    spec:
+      containers:
+        - name: artwork-service
+          image: artistalley-backend:latest
+          imagePullPolicy: Never
+          command: ["python", "server.py"]
+          ports:
+            - containerPort: 50051
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: artwork-service
+spec:
+  selector:
+    app: artwork-service
+  ports:
+    - port: 50051
+      targetPort: 50051
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: media
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: media
+  template:
+    metadata:
+      labels:
+        app: media
+    spec:
+      containers:
+        - name: media
+          image: artistalley-backend:latest
+          imagePullPolicy: Never
+          command: ["python", "media_server.py", "60201"]
+          ports:
+            - containerPort: 60201
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: media
+spec:
+  clusterIP: None
+  selector:
+    app: media
+  ports:
+    - port: 60201
+      targetPort: 60201
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lock-manager
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lock-manager
+  template:
+    metadata:
+      labels:
+        app: lock-manager
+    spec:
+      containers:
+        - name: lock-manager
+          image: artistalley-backend:latest
+          imagePullPolicy: Never
+          command: ["python", "lock_manager.py", "detect"]
+          ports:
+            - containerPort: 60100
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lock-manager
+spec:
+  selector:
+    app: lock-manager
+  ports:
+    - port: 60100
+      targetPort: 60100
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: draft-a
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: draft-a
+  template:
+    metadata:
+      labels:
+        app: draft-a
+    spec:
+      containers:
+        - name: draft-a
+          image: artistalley-backend:latest
+          imagePullPolicy: Never
+          command: ["python", "draft_replica.py", "A", "60301"]
+          ports:
+            - containerPort: 60301
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: draft-a
+spec:
+  selector:
+    app: draft-a
+  ports:
+    - port: 60301
+      targetPort: 60301
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: draft-b
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: draft-b
+  template:
+    metadata:
+      labels:
+        app: draft-b
+    spec:
+      containers:
+        - name: draft-b
+          image: artistalley-backend:latest
+          imagePullPolicy: Never
+          command: ["python", "draft_replica.py", "B", "60302"]
+          ports:
+            - containerPort: 60302
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: draft-b
+spec:
+  selector:
+    app: draft-b
+  ports:
+    - port: 60302
+      targetPort: 60302
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: draft-c
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: draft-c
+  template:
+    metadata:
+      labels:
+        app: draft-c
+    spec:
+      containers:
+        - name: draft-c
+          image: artistalley-backend:latest
+          imagePullPolicy: Never
+          command: ["python", "draft_replica.py", "C", "60303"]
+          ports:
+            - containerPort: 60303
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: draft-c
+spec:
+  selector:
+    app: draft-c
+  ports:
+    - port: 60303
+      targetPort: 60303
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: raft-a
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: raft-a
+  template:
+    metadata:
+      labels:
+        app: raft-a
+    spec:
+      containers:
+        - name: raft-a
+          image: artistalley-backend:latest
+          imagePullPolicy: Never
+          command: ["python", "raft_node.py", "A"]
+          ports:
+            - containerPort: 60401
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: raft-a
+spec:
+  selector:
+    app: raft-a
+  ports:
+    - port: 60401
+      targetPort: 60401
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: raft-b
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: raft-b
+  template:
+    metadata:
+      labels:
+        app: raft-b
+    spec:
+      containers:
+        - name: raft-b
+          image: artistalley-backend:latest
+          imagePullPolicy: Never
+          command: ["python", "raft_node.py", "B"]
+          ports:
+            - containerPort: 60402
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: raft-b
+spec:
+  selector:
+    app: raft-b
+  ports:
+    - port: 60402
+      targetPort: 60402
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: raft-c
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: raft-c
+  template:
+    metadata:
+      labels:
+        app: raft-c
+    spec:
+      containers:
+        - name: raft-c
+          image: artistalley-backend:latest
+          imagePullPolicy: Never
+          command: ["python", "raft_node.py", "C"]
+          ports:
+            - containerPort: 60403
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: raft-c
+spec:
+  selector:
+    app: raft-c
+  ports:
+    - port: 60403
+      targetPort: 60403

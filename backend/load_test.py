@@ -16,9 +16,11 @@ import grpc
 import artwork_pb2
 import artwork_pb2_grpc
 
-ARTWORK_ADDR = "localhost:50051"
-DRAFT_ADDRS = ["localhost:60301", "localhost:60302", "localhost:60303"]
-MEDIA_ADDRS = ["localhost:60201", "localhost:60202", "localhost:60203"]
+import os
+
+ARTWORK_ADDR = os.environ.get("ARTWORK_ADDR", "localhost:50051")
+DRAFT_ADDRS = os.environ.get("DRAFT_ADDRS", "localhost:60301,localhost:60302,localhost:60303").split(",")
+MEDIA_ADDRS = os.environ.get("MEDIA_ADDRS", "localhost:60201,localhost:60202,localhost:60203").split(",")
 
 NUM_ARTWORK_REQUESTS = 30
 NUM_DRAFT_SAVES = 15
@@ -30,7 +32,7 @@ results = {
     "draft": {"ok": 0, "fail": 0, "latencies": []},
     "media": {"ok": 0, "fail": 0, "latencies": []},
 }
-media_active = [0, 0, 0]
+media_active = [0] * len(MEDIA_ADDRS)
 media_lock = threading.Lock()
 
 
@@ -91,7 +93,7 @@ def upload_image(i):
     addr = MEDIA_ADDRS[idx]
     start = time.time()
     try:
-        with grpc.insecure_channel(addr) as channel:
+        with grpc.insecure_channel("dns:///" + addr, options=[("grpc.lb_policy_name", "round_robin")]) as channel:
             stub = artwork_pb2_grpc.MediaServiceStub(channel)
             stub.ProcessImage(
                 artwork_pb2.ImageRequest(image_id=i, lamport_timestamp=0),
