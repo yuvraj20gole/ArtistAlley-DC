@@ -745,3 +745,420 @@ class RaftService:
             timeout,
             metadata,
             _registered_method=True)
+
+
+class DfsMetadataServiceStub:
+    """--- Experiment 11: Distributed File System for artwork file storage ---
+    A metadata server tracks which storage nodes hold which chunks of each
+    file. Storage nodes keep the chunk bytes on disk and send heartbeats so
+    the metadata server knows who is alive. Every file gets a version from
+    the Lamport clock (same clock rules as Experiment 3).
+    """
+
+    def __init__(self, channel):
+        """Constructor.
+
+        Args:
+            channel: A grpc.Channel.
+        """
+        self.Heartbeat = channel.unary_unary(
+                '/artistalley.DfsMetadataService/Heartbeat',
+                request_serializer=artwork__pb2.DfsNodeInfo.SerializeToString,
+                response_deserializer=artwork__pb2.DfsAck.FromString,
+                _registered_method=True)
+        self.AllocateFile = channel.unary_unary(
+                '/artistalley.DfsMetadataService/AllocateFile',
+                request_serializer=artwork__pb2.DfsAllocateRequest.SerializeToString,
+                response_deserializer=artwork__pb2.DfsAllocateReply.FromString,
+                _registered_method=True)
+        self.CommitFile = channel.unary_unary(
+                '/artistalley.DfsMetadataService/CommitFile',
+                request_serializer=artwork__pb2.DfsCommitRequest.SerializeToString,
+                response_deserializer=artwork__pb2.DfsCommitReply.FromString,
+                _registered_method=True)
+        self.GetFileInfo = channel.unary_unary(
+                '/artistalley.DfsMetadataService/GetFileInfo',
+                request_serializer=artwork__pb2.DfsFileQuery.SerializeToString,
+                response_deserializer=artwork__pb2.DfsFileInfo.FromString,
+                _registered_method=True)
+        self.ClusterStatus = channel.unary_unary(
+                '/artistalley.DfsMetadataService/ClusterStatus',
+                request_serializer=artwork__pb2.DfsStatusRequest.SerializeToString,
+                response_deserializer=artwork__pb2.DfsStatusReply.FromString,
+                _registered_method=True)
+        self.AddReplica = channel.unary_unary(
+                '/artistalley.DfsMetadataService/AddReplica',
+                request_serializer=artwork__pb2.DfsReplicaUpdate.SerializeToString,
+                response_deserializer=artwork__pb2.DfsAck.FromString,
+                _registered_method=True)
+
+
+class DfsMetadataServiceServicer:
+    """--- Experiment 11: Distributed File System for artwork file storage ---
+    A metadata server tracks which storage nodes hold which chunks of each
+    file. Storage nodes keep the chunk bytes on disk and send heartbeats so
+    the metadata server knows who is alive. Every file gets a version from
+    the Lamport clock (same clock rules as Experiment 3).
+    """
+
+    def Heartbeat(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AllocateFile(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def CommitFile(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetFileInfo(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ClusterStatus(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AddReplica(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+
+def add_DfsMetadataServiceServicer_to_server(servicer, server):
+    rpc_method_handlers = {
+            'Heartbeat': grpc.unary_unary_rpc_method_handler(
+                    servicer.Heartbeat,
+                    request_deserializer=artwork__pb2.DfsNodeInfo.FromString,
+                    response_serializer=artwork__pb2.DfsAck.SerializeToString,
+            ),
+            'AllocateFile': grpc.unary_unary_rpc_method_handler(
+                    servicer.AllocateFile,
+                    request_deserializer=artwork__pb2.DfsAllocateRequest.FromString,
+                    response_serializer=artwork__pb2.DfsAllocateReply.SerializeToString,
+            ),
+            'CommitFile': grpc.unary_unary_rpc_method_handler(
+                    servicer.CommitFile,
+                    request_deserializer=artwork__pb2.DfsCommitRequest.FromString,
+                    response_serializer=artwork__pb2.DfsCommitReply.SerializeToString,
+            ),
+            'GetFileInfo': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetFileInfo,
+                    request_deserializer=artwork__pb2.DfsFileQuery.FromString,
+                    response_serializer=artwork__pb2.DfsFileInfo.SerializeToString,
+            ),
+            'ClusterStatus': grpc.unary_unary_rpc_method_handler(
+                    servicer.ClusterStatus,
+                    request_deserializer=artwork__pb2.DfsStatusRequest.FromString,
+                    response_serializer=artwork__pb2.DfsStatusReply.SerializeToString,
+            ),
+            'AddReplica': grpc.unary_unary_rpc_method_handler(
+                    servicer.AddReplica,
+                    request_deserializer=artwork__pb2.DfsReplicaUpdate.FromString,
+                    response_serializer=artwork__pb2.DfsAck.SerializeToString,
+            ),
+    }
+    generic_handler = grpc.method_handlers_generic_handler(
+            'artistalley.DfsMetadataService', rpc_method_handlers)
+    server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('artistalley.DfsMetadataService', rpc_method_handlers)
+
+
+ # This class is part of an EXPERIMENTAL API.
+class DfsMetadataService:
+    """--- Experiment 11: Distributed File System for artwork file storage ---
+    A metadata server tracks which storage nodes hold which chunks of each
+    file. Storage nodes keep the chunk bytes on disk and send heartbeats so
+    the metadata server knows who is alive. Every file gets a version from
+    the Lamport clock (same clock rules as Experiment 3).
+    """
+
+    @staticmethod
+    def Heartbeat(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/artistalley.DfsMetadataService/Heartbeat',
+            artwork__pb2.DfsNodeInfo.SerializeToString,
+            artwork__pb2.DfsAck.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def AllocateFile(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/artistalley.DfsMetadataService/AllocateFile',
+            artwork__pb2.DfsAllocateRequest.SerializeToString,
+            artwork__pb2.DfsAllocateReply.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def CommitFile(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/artistalley.DfsMetadataService/CommitFile',
+            artwork__pb2.DfsCommitRequest.SerializeToString,
+            artwork__pb2.DfsCommitReply.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetFileInfo(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/artistalley.DfsMetadataService/GetFileInfo',
+            artwork__pb2.DfsFileQuery.SerializeToString,
+            artwork__pb2.DfsFileInfo.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ClusterStatus(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/artistalley.DfsMetadataService/ClusterStatus',
+            artwork__pb2.DfsStatusRequest.SerializeToString,
+            artwork__pb2.DfsStatusReply.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def AddReplica(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/artistalley.DfsMetadataService/AddReplica',
+            artwork__pb2.DfsReplicaUpdate.SerializeToString,
+            artwork__pb2.DfsAck.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+
+class DfsStorageServiceStub:
+    """Missing associated documentation comment in .proto file."""
+
+    def __init__(self, channel):
+        """Constructor.
+
+        Args:
+            channel: A grpc.Channel.
+        """
+        self.PutChunk = channel.unary_unary(
+                '/artistalley.DfsStorageService/PutChunk',
+                request_serializer=artwork__pb2.DfsChunkData.SerializeToString,
+                response_deserializer=artwork__pb2.DfsAck.FromString,
+                _registered_method=True)
+        self.GetChunk = channel.unary_unary(
+                '/artistalley.DfsStorageService/GetChunk',
+                request_serializer=artwork__pb2.DfsChunkId.SerializeToString,
+                response_deserializer=artwork__pb2.DfsChunkData.FromString,
+                _registered_method=True)
+
+
+class DfsStorageServiceServicer:
+    """Missing associated documentation comment in .proto file."""
+
+    def PutChunk(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetChunk(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+
+def add_DfsStorageServiceServicer_to_server(servicer, server):
+    rpc_method_handlers = {
+            'PutChunk': grpc.unary_unary_rpc_method_handler(
+                    servicer.PutChunk,
+                    request_deserializer=artwork__pb2.DfsChunkData.FromString,
+                    response_serializer=artwork__pb2.DfsAck.SerializeToString,
+            ),
+            'GetChunk': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetChunk,
+                    request_deserializer=artwork__pb2.DfsChunkId.FromString,
+                    response_serializer=artwork__pb2.DfsChunkData.SerializeToString,
+            ),
+    }
+    generic_handler = grpc.method_handlers_generic_handler(
+            'artistalley.DfsStorageService', rpc_method_handlers)
+    server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('artistalley.DfsStorageService', rpc_method_handlers)
+
+
+ # This class is part of an EXPERIMENTAL API.
+class DfsStorageService:
+    """Missing associated documentation comment in .proto file."""
+
+    @staticmethod
+    def PutChunk(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/artistalley.DfsStorageService/PutChunk',
+            artwork__pb2.DfsChunkData.SerializeToString,
+            artwork__pb2.DfsAck.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetChunk(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/artistalley.DfsStorageService/GetChunk',
+            artwork__pb2.DfsChunkId.SerializeToString,
+            artwork__pb2.DfsChunkData.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

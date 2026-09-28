@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rartwork.proto\x12\x0b\x61rtistalley\"?\n\x0e\x41rtworkRequest\x12\x12\n\nartwork_id\x18\x01 \x01(\x05\x12\x19\n\x11lamport_timestamp\x18\x02 \x01(\x05\">\n\x0f\x43\x61tegoryRequest\x12\x10\n\x08\x63\x61tegory\x18\x01 \x01(\t\x12\x19\n\x11lamport_timestamp\x18\x02 \x01(\x05\"\xae\x01\n\x0f\x41rtworkResponse\x12\x12\n\nartwork_id\x18\x01 \x01(\x05\x12\r\n\x05title\x18\x02 \x01(\t\x12\x0e\n\x06\x61rtist\x18\x03 \x01(\t\x12\x10\n\x08\x63\x61tegory\x18\x04 \x01(\t\x12\r\n\x05price\x18\x05 \x01(\x01\x12\r\n\x05views\x18\x06 \x01(\x05\x12\r\n\x05likes\x18\x07 \x01(\x05\x12\x0e\n\x06status\x18\x08 \x01(\t\x12\x19\n\x11lamport_timestamp\x18\t \x01(\x05\"3\n\rAccessRequest\x12\x0f\n\x07node_id\x18\x01 \x01(\x05\x12\x11\n\ttimestamp\x18\x02 \x01(\x05\"1\n\x0b\x41\x63\x63\x65ssReply\x12\x0f\n\x07node_id\x18\x01 \x01(\x05\x12\x11\n\ttimestamp\x18\x02 \x01(\x05\"H\n\x0bLockRequest\x12\x13\n\x0bresource_id\x18\x01 \x01(\t\x12\x11\n\tholder_id\x18\x02 \x01(\x05\x12\x11\n\ttimestamp\x18\x03 \x01(\x05\"-\n\tLockReply\x12\x0f\n\x07granted\x18\x01 \x01(\x08\x12\x0f\n\x07message\x18\x02 \x01(\t\";\n\x0cImageRequest\x12\x10\n\x08image_id\x18\x01 \x01(\x05\x12\x19\n\x11lamport_timestamp\x18\x02 \x01(\x05\"_\n\nImageReply\x12\x10\n\x08image_id\x18\x01 \x01(\x05\x12\x14\n\x0cprocessed_by\x18\x02 \x01(\t\x12\x0e\n\x06status\x18\x03 \x01(\t\x12\x19\n\x11lamport_timestamp\x18\x04 \x01(\x05\"c\n\x0b\x44raftUpdate\x12\x10\n\x08\x64raft_id\x18\x01 \x01(\t\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\t\x12\x19\n\x11lamport_timestamp\x18\x03 \x01(\x05\x12\x16\n\x0eorigin_replica\x18\x04 \x01(\t\"G\n\x07SaveAck\x12\x10\n\x08\x61\x63\x63\x65pted\x18\x01 \x01(\x08\x12\x0f\n\x07replica\x18\x02 \x01(\t\x12\x19\n\x11lamport_timestamp\x18\x03 \x01(\x05\"\x1e\n\nDraftQuery\x12\x10\n\x08\x64raft_id\x18\x01 \x01(\t\"b\n\nDraftState\x12\x10\n\x08\x64raft_id\x18\x01 \x01(\t\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\t\x12\x19\n\x11lamport_timestamp\x18\x03 \x01(\x05\x12\x16\n\x0eorigin_replica\x18\x04 \x01(\t\"1\n\x0bVoteRequest\x12\x0c\n\x04term\x18\x01 \x01(\x05\x12\x14\n\x0c\x63\x61ndidate_id\x18\x02 \x01(\t\"/\n\tVoteReply\x12\x0c\n\x04term\x18\x01 \x01(\x05\x12\x14\n\x0cvote_granted\x18\x02 \x01(\x08\"3\n\x10HeartbeatRequest\x12\x0c\n\x04term\x18\x01 \x01(\x05\x12\x11\n\tleader_id\x18\x02 \x01(\t\"/\n\x0eHeartbeatReply\x12\x0c\n\x04term\x18\x01 \x01(\x05\x12\x0f\n\x07success\x18\x02 \x01(\x08\x32\xb1\x01\n\x0e\x41rtworkService\x12G\n\nGetArtwork\x12\x1b.artistalley.ArtworkRequest\x1a\x1c.artistalley.ArtworkResponse\x12V\n\x16ListArtworksByCategory\x12\x1c.artistalley.CategoryRequest\x1a\x1c.artistalley.ArtworkResponse0\x01\x32U\n\x0cMutexService\x12\x45\n\rRequestAccess\x12\x1a.artistalley.AccessRequest\x1a\x18.artistalley.AccessReply2\x8f\x01\n\x0bLockService\x12?\n\x0b\x41\x63quireLock\x12\x18.artistalley.LockRequest\x1a\x16.artistalley.LockReply\x12?\n\x0bReleaseLock\x12\x18.artistalley.LockRequest\x1a\x16.artistalley.LockReply2R\n\x0cMediaService\x12\x42\n\x0cProcessImage\x12\x19.artistalley.ImageRequest\x1a\x17.artistalley.ImageReply2\xc7\x01\n\x0c\x44raftService\x12;\n\tSaveDraft\x12\x18.artistalley.DraftUpdate\x1a\x14.artistalley.SaveAck\x12<\n\nSyncUpdate\x12\x18.artistalley.DraftUpdate\x1a\x14.artistalley.SaveAck\x12<\n\x08GetDraft\x12\x17.artistalley.DraftQuery\x1a\x17.artistalley.DraftState2\x9b\x01\n\x0bRaftService\x12?\n\x0bRequestVote\x12\x18.artistalley.VoteRequest\x1a\x16.artistalley.VoteReply\x12K\n\rAppendEntries\x12\x1d.artistalley.HeartbeatRequest\x1a\x1b.artistalley.HeartbeatReplyb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rartwork.proto\x12\x0b\x61rtistalley\"?\n\x0e\x41rtworkRequest\x12\x12\n\nartwork_id\x18\x01 \x01(\x05\x12\x19\n\x11lamport_timestamp\x18\x02 \x01(\x05\">\n\x0f\x43\x61tegoryRequest\x12\x10\n\x08\x63\x61tegory\x18\x01 \x01(\t\x12\x19\n\x11lamport_timestamp\x18\x02 \x01(\x05\"\xae\x01\n\x0f\x41rtworkResponse\x12\x12\n\nartwork_id\x18\x01 \x01(\x05\x12\r\n\x05title\x18\x02 \x01(\t\x12\x0e\n\x06\x61rtist\x18\x03 \x01(\t\x12\x10\n\x08\x63\x61tegory\x18\x04 \x01(\t\x12\r\n\x05price\x18\x05 \x01(\x01\x12\r\n\x05views\x18\x06 \x01(\x05\x12\r\n\x05likes\x18\x07 \x01(\x05\x12\x0e\n\x06status\x18\x08 \x01(\t\x12\x19\n\x11lamport_timestamp\x18\t \x01(\x05\"3\n\rAccessRequest\x12\x0f\n\x07node_id\x18\x01 \x01(\x05\x12\x11\n\ttimestamp\x18\x02 \x01(\x05\"1\n\x0b\x41\x63\x63\x65ssReply\x12\x0f\n\x07node_id\x18\x01 \x01(\x05\x12\x11\n\ttimestamp\x18\x02 \x01(\x05\"H\n\x0bLockRequest\x12\x13\n\x0bresource_id\x18\x01 \x01(\t\x12\x11\n\tholder_id\x18\x02 \x01(\x05\x12\x11\n\ttimestamp\x18\x03 \x01(\x05\"-\n\tLockReply\x12\x0f\n\x07granted\x18\x01 \x01(\x08\x12\x0f\n\x07message\x18\x02 \x01(\t\";\n\x0cImageRequest\x12\x10\n\x08image_id\x18\x01 \x01(\x05\x12\x19\n\x11lamport_timestamp\x18\x02 \x01(\x05\"_\n\nImageReply\x12\x10\n\x08image_id\x18\x01 \x01(\x05\x12\x14\n\x0cprocessed_by\x18\x02 \x01(\t\x12\x0e\n\x06status\x18\x03 \x01(\t\x12\x19\n\x11lamport_timestamp\x18\x04 \x01(\x05\"c\n\x0b\x44raftUpdate\x12\x10\n\x08\x64raft_id\x18\x01 \x01(\t\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\t\x12\x19\n\x11lamport_timestamp\x18\x03 \x01(\x05\x12\x16\n\x0eorigin_replica\x18\x04 \x01(\t\"G\n\x07SaveAck\x12\x10\n\x08\x61\x63\x63\x65pted\x18\x01 \x01(\x08\x12\x0f\n\x07replica\x18\x02 \x01(\t\x12\x19\n\x11lamport_timestamp\x18\x03 \x01(\x05\"\x1e\n\nDraftQuery\x12\x10\n\x08\x64raft_id\x18\x01 \x01(\t\"b\n\nDraftState\x12\x10\n\x08\x64raft_id\x18\x01 \x01(\t\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\t\x12\x19\n\x11lamport_timestamp\x18\x03 \x01(\x05\x12\x16\n\x0eorigin_replica\x18\x04 \x01(\t\"1\n\x0bVoteRequest\x12\x0c\n\x04term\x18\x01 \x01(\x05\x12\x14\n\x0c\x63\x61ndidate_id\x18\x02 \x01(\t\"/\n\tVoteReply\x12\x0c\n\x04term\x18\x01 \x01(\x05\x12\x14\n\x0cvote_granted\x18\x02 \x01(\x08\"3\n\x10HeartbeatRequest\x12\x0c\n\x04term\x18\x01 \x01(\x05\x12\x11\n\tleader_id\x18\x02 \x01(\t\"/\n\x0eHeartbeatReply\x12\x0c\n\x04term\x18\x01 \x01(\x05\x12\x0f\n\x07success\x18\x02 \x01(\x08\"/\n\x0b\x44\x66sNodeInfo\x12\x0f\n\x07node_id\x18\x01 \x01(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\x02 \x01(\t\"%\n\x06\x44\x66sAck\x12\n\n\x02ok\x18\x01 \x01(\x08\x12\x0f\n\x07message\x18\x02 \x01(\t\"s\n\x0c\x44\x66sChunkPlan\x12\r\n\x05index\x18\x01 \x01(\x05\x12\x10\n\x08\x63hunk_id\x18\x02 \x01(\t\x12\x10\n\x08node_ids\x18\x03 \x03(\t\x12\x11\n\taddresses\x18\x04 \x03(\t\x12\r\n\x05\x61live\x18\x05 \x03(\x08\x12\x0e\n\x06sha256\x18\x06 \x01(\t\"U\n\x12\x44\x66sAllocateRequest\x12\x10\n\x08\x66ilename\x18\x01 \x01(\t\x12\x12\n\nnum_chunks\x18\x02 \x01(\x05\x12\x19\n\x11lamport_timestamp\x18\x03 \x01(\x05\"\x84\x01\n\x10\x44\x66sAllocateReply\x12\n\n\x02ok\x18\x01 \x01(\x08\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x0f\n\x07version\x18\x03 \x01(\x05\x12\'\n\x04plan\x18\x04 \x03(\x0b\x32\x19.artistalley.DfsChunkPlan\x12\x19\n\x11lamport_timestamp\x18\x05 \x01(\x05\"~\n\x10\x44\x66sCommitRequest\x12\x10\n\x08\x66ilename\x18\x01 \x01(\t\x12\x0f\n\x07version\x18\x02 \x01(\x05\x12\x0c\n\x04size\x18\x03 \x01(\x03\x12\x0e\n\x06sha256\x18\x04 \x01(\t\x12)\n\x06\x63hunks\x18\x05 \x03(\x0b\x32\x19.artistalley.DfsChunkPlan\"H\n\x0e\x44\x66sCommitReply\x12\n\n\x02ok\x18\x01 \x01(\x08\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x19\n\x11lamport_timestamp\x18\x03 \x01(\x05\" \n\x0c\x44\x66sFileQuery\x12\x10\n\x08\x66ilename\x18\x01 \x01(\t\"\x88\x01\n\x0b\x44\x66sFileInfo\x12\r\n\x05\x66ound\x18\x01 \x01(\x08\x12\x10\n\x08\x66ilename\x18\x02 \x01(\t\x12\x0f\n\x07version\x18\x03 \x01(\x05\x12\x0c\n\x04size\x18\x04 \x01(\x03\x12\x0e\n\x06sha256\x18\x05 \x01(\t\x12)\n\x06\x63hunks\x18\x06 \x03(\x0b\x32\x19.artistalley.DfsChunkPlan\">\n\x0c\x44\x66sChunkData\x12\x10\n\x08\x63hunk_id\x18\x01 \x01(\t\x12\x0c\n\x04\x64\x61ta\x18\x02 \x01(\x0c\x12\x0e\n\x06sha256\x18\x03 \x01(\t\"\x1e\n\nDfsChunkId\x12\x10\n\x08\x63hunk_id\x18\x01 \x01(\t\"\x12\n\x10\x44\x66sStatusRequest\"U\n\rDfsNodeStatus\x12\x0f\n\x07node_id\x18\x01 \x01(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\x02 \x01(\t\x12\r\n\x05\x61live\x18\x03 \x01(\x08\x12\x13\n\x0b\x63hunk_count\x18\x04 \x01(\x05\"d\n\x0e\x44\x66sStatusReply\x12)\n\x05nodes\x18\x01 \x03(\x0b\x32\x1a.artistalley.DfsNodeStatus\x12\'\n\x05\x66iles\x18\x02 \x03(\x0b\x32\x18.artistalley.DfsFileInfo\"J\n\x10\x44\x66sReplicaUpdate\x12\x10\n\x08\x66ilename\x18\x01 \x01(\t\x12\x13\n\x0b\x63hunk_index\x18\x02 \x01(\x05\x12\x0f\n\x07node_id\x18\x03 \x01(\t2\xb1\x01\n\x0e\x41rtworkService\x12G\n\nGetArtwork\x12\x1b.artistalley.ArtworkRequest\x1a\x1c.artistalley.ArtworkResponse\x12V\n\x16ListArtworksByCategory\x12\x1c.artistalley.CategoryRequest\x1a\x1c.artistalley.ArtworkResponse0\x01\x32U\n\x0cMutexService\x12\x45\n\rRequestAccess\x12\x1a.artistalley.AccessRequest\x1a\x18.artistalley.AccessReply2\x8f\x01\n\x0bLockService\x12?\n\x0b\x41\x63quireLock\x12\x18.artistalley.LockRequest\x1a\x16.artistalley.LockReply\x12?\n\x0bReleaseLock\x12\x18.artistalley.LockRequest\x1a\x16.artistalley.LockReply2R\n\x0cMediaService\x12\x42\n\x0cProcessImage\x12\x19.artistalley.ImageRequest\x1a\x17.artistalley.ImageReply2\xc7\x01\n\x0c\x44raftService\x12;\n\tSaveDraft\x12\x18.artistalley.DraftUpdate\x1a\x14.artistalley.SaveAck\x12<\n\nSyncUpdate\x12\x18.artistalley.DraftUpdate\x1a\x14.artistalley.SaveAck\x12<\n\x08GetDraft\x12\x17.artistalley.DraftQuery\x1a\x17.artistalley.DraftState2\x9b\x01\n\x0bRaftService\x12?\n\x0bRequestVote\x12\x18.artistalley.VoteRequest\x1a\x16.artistalley.VoteReply\x12K\n\rAppendEntries\x12\x1d.artistalley.HeartbeatRequest\x1a\x1b.artistalley.HeartbeatReply2\xbd\x03\n\x12\x44\x66sMetadataService\x12:\n\tHeartbeat\x12\x18.artistalley.DfsNodeInfo\x1a\x13.artistalley.DfsAck\x12N\n\x0c\x41llocateFile\x12\x1f.artistalley.DfsAllocateRequest\x1a\x1d.artistalley.DfsAllocateReply\x12H\n\nCommitFile\x12\x1d.artistalley.DfsCommitRequest\x1a\x1b.artistalley.DfsCommitReply\x12\x42\n\x0bGetFileInfo\x12\x19.artistalley.DfsFileQuery\x1a\x18.artistalley.DfsFileInfo\x12K\n\rClusterStatus\x12\x1d.artistalley.DfsStatusRequest\x1a\x1b.artistalley.DfsStatusReply\x12@\n\nAddReplica\x12\x1d.artistalley.DfsReplicaUpdate\x1a\x13.artistalley.DfsAck2\x8f\x01\n\x11\x44\x66sStorageService\x12:\n\x08PutChunk\x12\x19.artistalley.DfsChunkData\x1a\x13.artistalley.DfsAck\x12>\n\x08GetChunk\x12\x17.artistalley.DfsChunkId\x1a\x19.artistalley.DfsChunkDatab\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -65,16 +65,50 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_HEARTBEATREQUEST']._serialized_end=1176
   _globals['_HEARTBEATREPLY']._serialized_start=1178
   _globals['_HEARTBEATREPLY']._serialized_end=1225
-  _globals['_ARTWORKSERVICE']._serialized_start=1228
-  _globals['_ARTWORKSERVICE']._serialized_end=1405
-  _globals['_MUTEXSERVICE']._serialized_start=1407
-  _globals['_MUTEXSERVICE']._serialized_end=1492
-  _globals['_LOCKSERVICE']._serialized_start=1495
-  _globals['_LOCKSERVICE']._serialized_end=1638
-  _globals['_MEDIASERVICE']._serialized_start=1640
-  _globals['_MEDIASERVICE']._serialized_end=1722
-  _globals['_DRAFTSERVICE']._serialized_start=1725
-  _globals['_DRAFTSERVICE']._serialized_end=1924
-  _globals['_RAFTSERVICE']._serialized_start=1927
-  _globals['_RAFTSERVICE']._serialized_end=2082
+  _globals['_DFSNODEINFO']._serialized_start=1227
+  _globals['_DFSNODEINFO']._serialized_end=1274
+  _globals['_DFSACK']._serialized_start=1276
+  _globals['_DFSACK']._serialized_end=1313
+  _globals['_DFSCHUNKPLAN']._serialized_start=1315
+  _globals['_DFSCHUNKPLAN']._serialized_end=1430
+  _globals['_DFSALLOCATEREQUEST']._serialized_start=1432
+  _globals['_DFSALLOCATEREQUEST']._serialized_end=1517
+  _globals['_DFSALLOCATEREPLY']._serialized_start=1520
+  _globals['_DFSALLOCATEREPLY']._serialized_end=1652
+  _globals['_DFSCOMMITREQUEST']._serialized_start=1654
+  _globals['_DFSCOMMITREQUEST']._serialized_end=1780
+  _globals['_DFSCOMMITREPLY']._serialized_start=1782
+  _globals['_DFSCOMMITREPLY']._serialized_end=1854
+  _globals['_DFSFILEQUERY']._serialized_start=1856
+  _globals['_DFSFILEQUERY']._serialized_end=1888
+  _globals['_DFSFILEINFO']._serialized_start=1891
+  _globals['_DFSFILEINFO']._serialized_end=2027
+  _globals['_DFSCHUNKDATA']._serialized_start=2029
+  _globals['_DFSCHUNKDATA']._serialized_end=2091
+  _globals['_DFSCHUNKID']._serialized_start=2093
+  _globals['_DFSCHUNKID']._serialized_end=2123
+  _globals['_DFSSTATUSREQUEST']._serialized_start=2125
+  _globals['_DFSSTATUSREQUEST']._serialized_end=2143
+  _globals['_DFSNODESTATUS']._serialized_start=2145
+  _globals['_DFSNODESTATUS']._serialized_end=2230
+  _globals['_DFSSTATUSREPLY']._serialized_start=2232
+  _globals['_DFSSTATUSREPLY']._serialized_end=2332
+  _globals['_DFSREPLICAUPDATE']._serialized_start=2334
+  _globals['_DFSREPLICAUPDATE']._serialized_end=2408
+  _globals['_ARTWORKSERVICE']._serialized_start=2411
+  _globals['_ARTWORKSERVICE']._serialized_end=2588
+  _globals['_MUTEXSERVICE']._serialized_start=2590
+  _globals['_MUTEXSERVICE']._serialized_end=2675
+  _globals['_LOCKSERVICE']._serialized_start=2678
+  _globals['_LOCKSERVICE']._serialized_end=2821
+  _globals['_MEDIASERVICE']._serialized_start=2823
+  _globals['_MEDIASERVICE']._serialized_end=2905
+  _globals['_DRAFTSERVICE']._serialized_start=2908
+  _globals['_DRAFTSERVICE']._serialized_end=3107
+  _globals['_RAFTSERVICE']._serialized_start=3110
+  _globals['_RAFTSERVICE']._serialized_end=3265
+  _globals['_DFSMETADATASERVICE']._serialized_start=3268
+  _globals['_DFSMETADATASERVICE']._serialized_end=3713
+  _globals['_DFSSTORAGESERVICE']._serialized_start=3716
+  _globals['_DFSSTORAGESERVICE']._serialized_end=3859
 # @@protoc_insertion_point(module_scope)

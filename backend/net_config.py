@@ -20,6 +20,10 @@ LOCAL_HOSTS = {
     "raft-a": "localhost:60401",
     "raft-b": "localhost:60402",
     "raft-c": "localhost:60403",
+    "dfs-meta": "localhost:60501",
+    "dfs-store-1": "localhost:60511",
+    "dfs-store-2": "localhost:60512",
+    "dfs-store-3": "localhost:60513",
     "redis": "localhost:6379",
 }
 
@@ -35,6 +39,10 @@ DOCKER_HOSTS = {
     "raft-a": "raft-a:60401",
     "raft-b": "raft-b:60402",
     "raft-c": "raft-c:60403",
+    "dfs-meta": "dfs-meta:60501",
+    "dfs-store-1": "dfs-store-1:60511",
+    "dfs-store-2": "dfs-store-2:60512",
+    "dfs-store-3": "dfs-store-3:60513",
     "redis": "redis:6379",
 }
 

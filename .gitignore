@@ -351,3 +351,6 @@ staticfiles/
 *.temp
 backend/venv/
 backend/__pycache__/
+backend/dfs_data/
+backend/*.bin
+backend/.dfs_client_clock
